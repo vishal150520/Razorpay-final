@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "t0CLPHbtlxsVuIkeBktBckoyOHFlzYZkXD++jAr1xWxFa2iYdIBL56lOEOn9pkTSzh8ilB1x0NzS+ySv0uQ2qQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Stame\\OneDrive\\Desktop\\Vishal Data\\Razorpay.Integration\\Razorpay.Integration\\Razorpay.Integration.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Stame\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Stame\\.nuget\\packages\\razorpay.core\\1.0.2\\razorpay.core.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
