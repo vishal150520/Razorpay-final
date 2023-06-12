@@ -4,6 +4,7 @@ namespace Razorpay.Integration.Models
 {
     public class PaymentRequest
     {
+        [Key]
         [Required]
         public string Name { get; set; }
         [Required]

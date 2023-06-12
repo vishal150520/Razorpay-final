@@ -1,6 +1,7 @@
 ﻿@model Razorpay.Integration.Models.MerchantOrder
 <button id="RzP_btn" hidden>Pay</button>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
     var options = {
         "key": "@Html.DisplayFor(model => model.RazorpayKey)", // Enter the Key ID generated from the Dashboard
@@ -15,6 +16,14 @@
             // Set the data in hidden form
             document.getElementById('rzp_paymentid').value = response.razorpay_payment_id;
             document.getElementById('rzp_orderid').value = response.razorpay_order_id;
+            document.getElementById('rzp_signature').value = response.razorpay_signature;
+           Btnclick();
+
+            //console.log(response.razorpay_payment_id)
+            //console.log(response.razorpay_order_id)
+            //console.log(response)
+           // console.log("Payment s")
+           // alert("congrates !! Payement sucess")
             // // Let's submit the form automatically
             document.getElementById('rzp-paymentresponse').click();
         },
@@ -39,9 +48,35 @@
         rzp1.open();
         e.preventDefault();
     }
+    function Btnclick() {
+       // debugger;
+        var pay_id = $("#rzp_paymentid").val();
+        var ord_id = $("#rzp_orderid").val();
+        var sign = $("#rzp_signature").val();
+        var status = "paid";
+        var obj = {
+            order_id: ord_id,
+            payment_id: pay_id,
+            status: status,
+            signature:sign
+        }
+        $.ajax({
+            url: "/Payment/update",
+            method: "POST",
+            data: obj,
+            success: function (data) {
+                //data = JSON.parse(data);
+                console.log(data);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    }
 </script>
 <form action="CompleteOrderProcess" method="post" asp-antiforgery="true">
-    <input type="hidden" id="rzp_paymentid" name="rzp_paymentid" />
-    <input type="hidden" id="rzp_orderid" name="rzp_orderid" />
+    <input type="hidden" id="rzp_paymentid" name="rzp_paymentid"  />
+    <input type="hidden" id="rzp_orderid" name="rzp_orderid"  />
+    <input type="hidden" id="rzp_signature" name="rzp_signature" />
     <button type="submit" id="rzp-paymentresponse" class="btn btn-primary" hidden>Submit</button>
 </form>

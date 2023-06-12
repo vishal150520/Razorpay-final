@@ -1,7 +1,10 @@
-﻿namespace Razorpay.Integration.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Razorpay.Integration.Models
 {
     public class MerchantOrder
     {
+        [Key]
         public string OrderId { get; set; }
         public string RazorpayKey { get; set; }
         public int Amount { get; set; }
