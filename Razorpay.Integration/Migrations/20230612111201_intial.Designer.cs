@@ -11,8 +11,8 @@ using Razorpay.Integration.Models;
 namespace Razorpay.Integration.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230609111857_Intial1")]
-    partial class Intial1
+    [Migration("20230612111201_intial")]
+    partial class intial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,8 +96,11 @@ namespace Razorpay.Integration.Migrations
 
             modelBuilder.Entity("Razorpay.Integration.Models.PaymentRequest", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -110,11 +113,15 @@ namespace Razorpay.Integration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("PaymentRequestt");
                 });

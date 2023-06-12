@@ -36,10 +36,22 @@
             "address": "@Html.DisplayFor(model => model.Address)"
         },
         "theme": {
+
+
             "color": "#F37254"
         }
     };
     var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response) {
+        //alert(response.error.code);
+        //alert(response.error.description);
+        //alert(response.error.source);
+       // alert(response.error.step);
+      //  alert(response.error.reason);
+       // alert(response.error.metadata.order_id);
+       // alert(response.error.metadata.payment_id);
+        updatefail(response.error.metadata.order_id, response.error.metadata.payment_id);
+    });
     //<!-- onload function -->
     window.onload = function () {
         document.getElementById('RzP_btn').click();
@@ -47,6 +59,28 @@
     document.getElementById('RzP_btn').onclick = function (e) {
         rzp1.open();
         e.preventDefault();
+    }
+   function  updatefail(or_id,py_id)
+    {
+        var obj = {
+            order_id: or_id,
+            payment_id: py_id,
+            status: "UnPaid",
+            signature:"0"
+        }
+        $.ajax({
+            url: "/Payment/updatefail",
+            method: "POST",
+            data: obj,
+            success: function (data) {
+                //data = JSON.parse(data);
+                console.log(data);
+            },
+            error: function () {
+                alert("err");
+            }
+        })
+
     }
     function Btnclick() {
        // debugger;
@@ -68,8 +102,8 @@
                 //data = JSON.parse(data);
                 console.log(data);
             },
-            error: function (err) {
-                console.log(err);
+            error: function () {
+                alert("err");
             }
         })
     }

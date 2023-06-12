@@ -6,7 +6,7 @@ public class PaymentController : Controller
     private readonly ILogger<PaymentController> _logger;
     private readonly IPaymentService _service;
     private IHttpContextAccessor _httpContextAccessor;
-    private readonly AppDbContext  _dbContext;
+    private readonly AppDbContext _dbContext;
     public PaymentController(ILogger<PaymentController> logger, IPaymentService service, IHttpContextAccessor httpContextAccessor, AppDbContext dbContext)
     {
         _logger = logger;
@@ -56,14 +56,27 @@ public class PaymentController : Controller
         return View();
     }
     [HttpPost]
-    public  IActionResult update(Paydata paydata)
+    public IActionResult update(Paydata paydata)
     {
         if (ModelState.IsValid)
         {
             _dbContext.paydatas.Add(paydata);
             _dbContext.SaveChanges();
+            
         }
-        return Ok("Success");
+        return Ok("Success Payement");
+
     }
+    public IActionResult updatefail(Paydata paydata)
+    {
+        if (ModelState.IsValid)
+        {
+            _dbContext.paydatas.Add(paydata);
+            _dbContext.SaveChanges();
+
+        }
+        return Ok("Payement Failed");
+    }
+
 
 }
